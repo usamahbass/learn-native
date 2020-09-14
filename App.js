@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet, Alert } from 'react-native';
 import AddTodo from './components/addTodo';
 import Header from './components/header';
 import TodoList from './components/todoList';
@@ -36,7 +36,12 @@ const App = () => {
         ]
       })
     } else {
-      alert("Please fill the form, min 4 carachters !")
+      Alert.alert("Opps !", "Todos must be over 3 chars long", [
+        {
+          text: "Close",
+          onPress: () => console.log("alert closed")
+        }
+      ])
     }
   }
 
