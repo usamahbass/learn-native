@@ -1,29 +1,33 @@
-import React from 'react'
-import { TextInput, View, StyleSheet, Button } from 'react-native'
+import React from 'react';
+import {TextInput, View, StyleSheet, Button} from 'react-native';
 
 const AddTodo = ({pressText}) => {
-    const [text, setText] = React.useState("")
+  const [text, setText] = React.useState('');
 
-    const handleText = (val) => {
-        setText(val)
-    }
+  const handleText = (val) => {
+    setText(val);
+  };
 
-    return (
-       <View>
-           <TextInput style={styles.input} placeholder="add new todo ..." onChangeText={handleText} />
-           <Button onPress={() => pressText(text)} title="add Todo" />
-       </View>
-    )
-}
+  return (
+    <View>
+      <TextInput
+        style={styles.input}
+        placeholder="add new todo ..."
+        onChangeText={handleText}
+      />
+      <Button onPress={() => pressText(text)} title="add Todo" color="rgb(29, 113, 170)" />
+    </View>
+  );
+};
 
-export default AddTodo
+export default AddTodo;
 
 const styles = StyleSheet.create({
-    input: {
-        marginBottom: 10,
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        borderBottomWidth: 1,
-        borderBottomColor: "#ddd"
-    }
-})
+  input: {
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+});

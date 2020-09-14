@@ -27,12 +27,17 @@ const App = () => {
   };
 
   const handleText = (val) => {
-    setTodos((prevTodos) => {
-      return [
-       { text: val, id: Math.random().toString()},
-       ...prevTodos
-      ]
-    })
+
+    if(val.length > 3) {
+      setTodos((prevTodos) => {
+        return [
+         { text: val, id: Math.random().toString()},
+         ...prevTodos
+        ]
+      })
+    } else {
+      alert("Please fill the form, min 4 carachters !")
+    }
   }
 
   return (
