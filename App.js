@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, FlatList, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, LogBox } from 'react-native';
 import AddTodo from './components/addTodo';
 import Header from './components/header';
 import TodoList from './components/todoList';
 
 const App = () => {
+  LogBox.ignoreAllLogs()
   const [todos, setTodos] = React.useState([
     {
       id: 1,
@@ -56,9 +57,13 @@ const App = () => {
         <FlatList
           style={styles.list}
           data={todos}
-          renderItem={({item}) => (
-            <TodoList handlePress={removeItem} item={item} />
-          )}
+          renderItem={({item}) => {
+            if(todos.length <= 0) {
+              return <Text>Todo is Empty , please make a todo !</Text>
+            } else {
+              return  <TodoList handlePress={removeItem} item={item} />
+            }
+          }}
         />
       </View>
     </View>
@@ -74,9 +79,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   content: {
+    flex: 1,
     padding: 40,
   },
   list: {
+    flex: 1,
     marginTop: 20,
   },
 });
