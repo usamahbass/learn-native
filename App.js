@@ -1,89 +1,29 @@
-import React from 'react';
-import { View, FlatList, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, LogBox } from 'react-native';
-import AddTodo from './components/addTodo';
-import Header from './components/header';
-import TodoList from './components/todoList';
+import React from 'react'
 
-const App = () => {
-  LogBox.ignoreAllLogs()
-  const [todos, setTodos] = React.useState([
-    {
-      id: 1,
-      text: 'Buy the tea',
-    },
-    {
-      id: 2,
-      text: 'Learn react-native',
-    },
-    {
-      id: 3,
-      text: 'Lets coding',
-    },
-  ]);
+import Todo from './src/components'
 
-  const removeItem = (id) => {
-    setTodos((prevTodos) => {
-      return prevTodos.filter((todo) => todo.id != id);
-    });
-  };
+import Splashscreen from './src/components/splash'
 
-  const handleText = (val) => {
-
-    if(val.length > 3) {
-      setTodos((prevTodos) => {
-        return [
-         { text: val, id: Math.random().toString()},
-         ...prevTodos
-        ]
-      })
-    } else {
-      Alert.alert("Opps !", "Todos must be over 3 chars long", [
-        {
-          text: "Close",
-          onPress: () => console.log("alert closed")
-        }
-      ])
-    }
+class App extends React.Component{
+  
+  state  = { 
+    role : true
   }
+  
+  render(){
+    setTimeout(()=>{
+      this.setState({
+          role:false
+      })
+  } ,5000)
+  if (this.state.role) {
+    return <Splashscreen/>
+    
+  }
+    return (
+      <Todo/>
+    )
+  }
+}
 
-  return (
-    <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss()
-    }} >
-      <View style={styles.container}>
-      <Header />
-      <View style={styles.content}>
-      <AddTodo pressText={handleText} />
-        <FlatList
-          style={styles.list}
-          data={todos}
-          renderItem={({item}) => {
-            if(todos.length <= 0) {
-              return <Text>Todo is Empty , please make a todo !</Text>
-            } else {
-              return  <TodoList handlePress={removeItem} item={item} />
-            }
-          }}
-        />
-      </View>
-    </View>
-    </TouchableWithoutFeedback>
-  );
-};
-
-export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  content: {
-    flex: 1,
-    padding: 40,
-  },
-  list: {
-    flex: 1,
-    marginTop: 20,
-  },
-});
+export default App
